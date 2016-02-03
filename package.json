@@ -1,6 +1,6 @@
 {
   "name": "language-confluence-wiki",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Confluence Wiki language support for Atom",
   "keywords": [
     "syntax",
