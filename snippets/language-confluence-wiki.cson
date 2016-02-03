@@ -2,9 +2,14 @@
   code:
     prefix: "code"
     body: '''
-      {code${1/.+/:/}${1:lang}}
+      {code:${1:lang}}
       $0
       {code}
+    '''
+  picture:
+    prefix: "pics"
+    body: '''
+      !${1:filename.png}|align=${2:alignment},border=${3:1}!
     '''
   "Macro (with body)":
     prefix: "mm"
