@@ -1,0 +1,577 @@
+fileTypes: [
+  "confluence"
+]
+firstLineMatch: "confluence"
+name: "Confluence"
+patterns: [
+  {
+    begin: "(^h[1-6]([<>=()]+)?)(\\([^)]*\\)|{[^}]*})*(\\.)"
+    captures:
+      "1":
+        name: "entity.name.tag.heading.confluence"
+      "3":
+        name: "entity.name.type.confluence"
+      "4":
+        name: "entity.name.tag.heading.confluence"
+    end: "^$"
+    name: "markup.heading.confluence"
+    patterns: [
+      {
+        include: "#inline"
+      }
+    ]
+  }
+  {
+    begin: "(^bq([<>=()]+)?)(\\([^)]*\\)|{[^}]*})*(\\.)"
+    captures:
+      "1":
+        name: "entity.name.tag.blockquote.confluence"
+      "3":
+        name: "entity.name.type.confluence"
+      "4":
+        name: "entity.name.tag.blockquote.confluence"
+    end: "^$"
+    name: "markup.quote.confluence"
+    patterns: [
+      {
+        include: "#inline"
+      }
+    ]
+  }
+  {
+    begin: "(^fn[0-9]+([<>=()]+)?)(\\([^)]*\\)|{[^}]*})*(\\.)"
+    captures:
+      "1":
+        name: "entity.name.tag.footnote.confluence"
+      "3":
+        name: "entity.name.type.confluence"
+      "4":
+        name: "entity.name.tag.footnote.confluence"
+    end: "^$"
+    name: "markup.other.footnote.confluence"
+    patterns: [
+      {
+        include: "#inline"
+      }
+    ]
+  }
+  {
+    begin: "^(?=\\S)"
+    end: "^$"
+    name: "meta.paragraph.confluence"
+    patterns: [
+      {
+        captures:
+          "1":
+            name: "entity.name.tag.paragraph.confluence"
+          "3":
+            name: "entity.name.type.confluence"
+          "4":
+            name: "entity.name.tag.paragraph.confluence"
+        match: "(^p([<>=()]+)?)(\\([^)]*\\)|{[^}]*})*(\\.)"
+        name: "entity.name.section.paragraph.confluence"
+      }
+      {
+        include: "#inline"
+      }
+    ]
+  }
+  {
+    comment: "Since html is valid in confluence include the html patterns"
+    include: "text.html.basic"
+  }
+  {
+    include: "#inline"
+  }
+]
+repository:
+  "code-macro":
+    patterns: [
+      {
+        begin: "(code)(:?)"
+        beginCaptures:
+          "1":
+            name: "support.function.macro.confluence"
+          "2":
+            name: "punctuation.seperator.macro.confluence"
+        end: "({)(code)(?=})"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.macro.end.confluence"
+          "2":
+            name: "support.function.macro.confluence"
+        name: "meta.macro.code.confluence"
+        patterns: [
+          {
+            begin: "(?i:xml)"
+            beginCaptures:
+              "0":
+                name: "constant.other.paramater.name.confluence"
+            end: "(?={code})"
+            name: "meta.macro.code.xml.confluence"
+            patterns: [
+              {
+                include: "#macro-parameters"
+              }
+              {
+                begin: "}"
+                contentName: "text.xml"
+                end: "(?={code})"
+                name: "meta.embedded.block.xml"
+                patterns: [
+                  {
+                    include: "text.xml"
+                  }
+                ]
+              }
+            ]
+          }
+          {
+            begin: "(?i:java)"
+            beginCaptures:
+              "0":
+                name: "constant.other.paramater.name.confluence"
+            end: "(?={code})"
+            name: "meta.macro.code.java.confluence"
+            patterns: [
+              {
+                include: "#macro-parameters"
+              }
+              {
+                begin: "}"
+                contentName: "source.java"
+                end: "(?={code})"
+                name: "meta.embedded.block.java"
+                patterns: [
+                  {
+                    include: "source.java"
+                  }
+                ]
+              }
+            ]
+          }
+          {
+            begin: "(?i:sql)"
+            beginCaptures:
+              "0":
+                name: "constant.other.paramater.name.confluence"
+            end: "(?={code})"
+            name: "meta.macro.code.sql.confluence"
+            patterns: [
+              {
+                include: "#macro-parameters"
+              }
+              {
+                begin: "}"
+                contentName: "source.sql"
+                end: "(?={code})"
+                name: "meta.embedded.block.sql"
+                patterns: [
+                  {
+                    include: "source.sql"
+                  }
+                ]
+              }
+            ]
+          }
+          {
+            begin: "(?i:actionscript)"
+            beginCaptures:
+              "0":
+                name: "constant.other.paramater.name.confluence"
+            end: "(?={code})"
+            name: "meta.macro.code.actionscript.confluence"
+            patterns: [
+              {
+                include: "#macro-parameters"
+              }
+              {
+                begin: "}"
+                contentName: "source.actionscript"
+                end: "(?={code})"
+                name: "meta.embedded.block.actionscript"
+                patterns: [
+                  {
+                    include: "source.actionscript"
+                  }
+                ]
+              }
+            ]
+          }
+          {
+            begin: "(?i:html)"
+            beginCaptures:
+              "0":
+                name: "constant.other.paramater.name.confluence"
+            end: "(?={code})"
+            name: "meta.macro.code.html.confluence"
+            patterns: [
+              {
+                include: "#macro-parameters"
+              }
+              {
+                begin: "}"
+                contentName: "text.html"
+                end: "(?={code})"
+                name: "meta.embedded.block.html"
+                patterns: [
+                  {
+                    include: "text.html.basic"
+                  }
+                ]
+              }
+            ]
+          }
+          {
+            begin: "(?i:perl)"
+            beginCaptures:
+              "0":
+                name: "constant.other.paramater.name.confluence"
+            end: "(?={code})"
+            name: "meta.macro.code.perl.confluence"
+            patterns: [
+              {
+                include: "#macro-parameters"
+              }
+              {
+                begin: "}"
+                contentName: "source.perl"
+                end: "(?={code})"
+                name: "meta.embedded.block.perl"
+                patterns: [
+                  {
+                    include: "source.perl"
+                  }
+                ]
+              }
+            ]
+          }
+          {
+            begin: "(?i:php)"
+            beginCaptures:
+              "0":
+                name: "constant.other.paramater.name.confluence"
+            end: "(?={code})"
+            name: "meta.macro.code.php.confluence"
+            patterns: [
+              {
+                include: "#macro-parameters"
+              }
+              {
+                begin: "}"
+                contentName: "source.php"
+                end: "(?={code})"
+                name: "meta.embedded.block.php"
+                patterns: [
+                  {
+                    include: "source.php"
+                  }
+                ]
+              }
+            ]
+          }
+          {
+            begin: ""
+            end: "(?={code})"
+            name: "meta.macro.code.content.confluence"
+            patterns: [
+              {
+                include: "#macro-parameters"
+              }
+              {
+                begin: "}"
+                contentName: "markup.raw.code.confluence"
+                end: "(?={code})"
+                name: "meta.macro.code.content.confluence"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  comments:
+    patterns: [
+      {
+        begin: "{HTMLComment:hidden}"
+        end: "{HTMLComment}"
+        name: "comment.block.text.html.confluence"
+      }
+    ]
+  inline:
+    patterns: [
+      {
+        include: "#comments"
+      }
+      {
+        include: "#macro"
+      }
+      {
+        comment: "& is handled automagically by confluence, so we match it to avoid text.html.basic from flagging it"
+        match: "&(?![A-Za-z0-9]+;)"
+        name: "text.html.confluence"
+      }
+      {
+        captures:
+          "1":
+            name: "entity.name.type.confluence"
+        match: "^\\*+(\\([^)]*\\)|{[^}]*})*(\\s+|$)"
+        name: "markup.list.unnumbered.confluence"
+      }
+      {
+        captures:
+          "1":
+            name: "entity.name.type.confluence"
+        match: "^#+(\\([^)]*\\)|{[^}]*})*\\s+"
+        name: "markup.list.numbered.confluence"
+      }
+      {
+        captures:
+          "1":
+            name: "string.other.link.title.confluence"
+          "2":
+            name: "string.other.link.description.title.confluence"
+          "3":
+            name: "constant.other.reference.link.confluence"
+        match: '''
+          (?x)
+          								"								# Start name, etc
+          									(?:							# Attributes
+          										# I swear, this is how the language is defined,
+          										# couldnt make it up if I tried.
+          										(?:\\([^)]+\\))?(?:\\{[^}]+\\})?(?:\\[[^\\]]+\\])?
+          											# Class, Style, Lang
+          									  | (?:\\{[^}]+\\})?(?:\\[[^\\]]+\\])?(?:\\([^)]+\\))?
+          											# Style, Lang, Class
+          									  | (?:\\[[^\\]]+\\])?(?:\\{[^}]+\\})?(?:\\([^)]+\\))?
+          											# Lang, Style, Class
+          									)?
+          									([^"]+?)					# Link name
+          									\\s?							# Optional whitespace
+          									(?:\\(([^)]+?)\\))?
+          								":								# End name
+          								(\\w[-\\w_]*)						# Linkref
+          								(?=[^\\w\\/;]*?(<|\\s|$))			# Catch closing punctuation
+          																#  and end of meta.link
+          					
+        '''
+        name: "meta.link.reference.confluence"
+      }
+      {
+        captures:
+          "1":
+            name: "punctuation.definition.link.address.begin.confluence"
+          "2":
+            name: "string.other.link.title.confluence"
+          "3":
+            name: "punctuation.separatory.link.title.confluence"
+          "4":
+            name: "markup.underline.link.confluence"
+          "5":
+            name: "punctuation.definition.link.address.end.confluence"
+        match: "(\\[)(?:([^|]*?)(\\|))?(.*?)(\\])"
+        name: "meta.link.confluence"
+      }
+      {
+        match: '''
+          (?x)
+          						( (https?|s?ftp|ftps|file|smb|afp|nfs|(x-)?man|gopher|txmt)://|mailto:)
+          						[-:@a-zA-Z0-9_.,~%+/?=&#]+(?<![.,?:])
+          					
+        '''
+        name: "markup.underline.link.confluence"
+      }
+      {
+        captures:
+          "2":
+            name: "markup.underline.link.image.confluence"
+          "3":
+            name: "string.other.link.description.confluence"
+          "4":
+            name: "markup.underline.link.confluence"
+        match: '''
+          (?x)
+          								\\!										# Open image
+          								(\\<|\\=|\\>)?								# Optional alignment
+          								(?:										# Attributes
+          									# I swear, this is how the language is defined,
+          									# couldnt make it up if I tried.
+          									(?:\\([^)]+\\))?(?:\\{[^}]+\\})?(?:\\[[^\\]]+\\])?
+          										# Class, Style, Lang
+          								  | (?:\\{[^}]+\\})?(?:\\[[^\\]]+\\])?(?:\\([^)]+\\))?
+          										# Style, Lang, Class
+          								  | (?:\\[[^\\]]+\\])?(?:\\{[^}]+\\})?(?:\\([^)]+\\))?
+          										# Lang, Style, Class
+          								)?
+          								(?:\\.[ ])?            					# Optional
+          								([^\\s(!]+?)         					# Image URL
+          								\\s?                						# Optional space
+          								(?:\\(((?:[^\\(\\)]|\\([^\\)]+\\))+?)\\))?   	# Optional title
+          								\\!										# Close image
+          								(?:
+          									:
+          									(\\S*?(?:\\w|\\/|;))					# URL
+          									(?=[^\\w\\/;]*?(<|\\s|$))				# Catch closing punctuation
+          								)?
+          					
+        '''
+        name: "meta.image.inline.confluence"
+      }
+      {
+        begin: "^\\s*(?=\\|)"
+        end: "^(?!\\s*\\|)"
+        name: "markup.other.table.confluence"
+        patterns: [
+          {
+            begin: "\\|\\|"
+            beginCaptures:
+              "0":
+                name: "punctuation.definition.table.header.confluence"
+            end: "(?=\\|\\||\\n)"
+            name: "markup.other.table.header.confluence"
+            patterns: [
+              {
+                include: "#inline"
+              }
+            ]
+          }
+          {
+            begin: "\\|(?!\\|)"
+            beginCaptures:
+              "0":
+                name: "punctuation.definition.table.cell.confluence"
+            end: "(?=\\||\\n)"
+            name: "markup.other.table.cell.confluence"
+            patterns: [
+              {
+                include: "#inline"
+              }
+            ]
+          }
+        ]
+      }
+      {
+        captures:
+          "3":
+            name: "entity.name.type.confluence"
+        match: "\\B(\\*\\*?)((\\([^)]*\\)|{[^}]*}|\\[[^]]+\\]){0,3})(\\S.*?\\S|\\S)\\1\\B"
+        name: "markup.bold.confluence"
+      }
+      {
+        captures:
+          "1":
+            name: "punctuation.definition.raw.begin.confluence"
+          "2":
+            name: "punctuation.definition.raw.end.confluence"
+        match: "({{).*?(}})"
+        name: "markup.raw.confluence"
+      }
+      {
+        begin: "{quote}"
+        beginCaptures:
+          "0":
+            name: "meta.tag.quote.confluence"
+        contentName: "markup.quote.confluence"
+        end: "{quote}"
+        endCaptures:
+          "0":
+            name: "meta.tag.quote.confluence"
+        name: "meta.block.quote.confluence"
+      }
+      {
+        captures:
+          "2":
+            name: "entity.name.type.confluence"
+        match: "\\B-((\\([^)]*\\)|{[^}]*}|\\[[^]]+\\]){0,3})(\\S.*?\\S|\\S)-\\B"
+        name: "markup.deleted.confluence"
+      }
+      {
+        captures:
+          "2":
+            name: "entity.name.type.confluence"
+        match: "\\B\\+((\\([^)]*\\)|{[^}]*}|\\[[^]]+\\]){0,3})(\\S.*?\\S|\\S)\\+\\B"
+        name: "markup.underline.confluence"
+      }
+      {
+        captures:
+          "2":
+            name: "entity.name.type.confluence"
+        match: "(?:\\b|\\s)_((\\([^)]*\\)|{[^}]*}|\\[[^]]+\\]){0,3})(\\S.*?\\S|\\S)_(?:\\b|\\s)"
+        name: "markup.italic.confluence"
+      }
+      {
+        captures:
+          "3":
+            name: "entity.name.type.confluence"
+        match: "\\B([@\\^~%]|\\?\\?)((\\([^)]*\\)|{[^}]*}|\\[[^]]+\\]){0,3})(\\S.*?\\S|\\S)\\1"
+        name: "markup.italic.phrasemodifiers.confluence"
+      }
+      {
+        comment: "Footnotes"
+        match: "(?<!w)\\[[0-9+]\\]"
+        name: "entity.name.tag.confluence"
+      }
+    ]
+  macro:
+    patterns: [
+      {
+        begin: "({)(?=[\\w-])"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.macro.begin.confluence"
+        end: "}"
+        endCaptures:
+          "0":
+            name: "punctuation.definition.macro.end.confluence"
+        name: "meta.macro.confluence"
+        patterns: [
+          {
+            include: "#specific-macros"
+          }
+          {
+            begin: "([\\w-]+)(:?)"
+            beginCaptures:
+              "1":
+                name: "support.function.macro.confluence"
+              "2":
+                name: "punctuation.seperator.macro.confluence"
+            end: "(?=})"
+            patterns: [
+              {
+                include: "#macro-parameters"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  "macro-parameter":
+    patterns: [
+      {
+        begin: "(\\w+)(?:(=)?)"
+        beginCaptures:
+          "1":
+            name: "constant.other.paramater.name.confluence"
+          "2":
+            name: "punctuation.seperator.argument.confluence"
+        contentName: "variable.parameter.macro.confluence"
+        end: "(?=}|\\|)"
+        name: "meta.macro.parameter.confluence"
+      }
+    ]
+  "macro-parameters":
+    patterns: [
+      {
+        match: "\\|"
+        name: "punctuation.seperator.macro.parameter.confluence"
+      }
+      {
+        include: "#macro-parameter"
+      }
+    ]
+  "specific-macros":
+    patterns: [
+      {
+        include: "#code-macro"
+      }
+    ]
+scopeName: "text.html.confluence"

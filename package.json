@@ -1,0 +1,13 @@
+{
+  "name": "language-confluence-wiki",
+  "version": "0.0.0",
+  "description": "Confluence Wiki language support for Atom",
+  "keywords": ["syntax", "language", "confluence", "atlassian", "wiki", "markup"],
+  "repository": "https://github.com/cbramy/language-confluence-wiki",
+  "license": "Apache-2.0",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
