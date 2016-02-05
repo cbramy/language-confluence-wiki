@@ -1,19 +1,54 @@
-".text.html.confluence":
-  code:
-    prefix: "code"
+'.text.html.confluence':
+  # Title markups
+  h1: prefix: 'h1', body: 'h1. $1'
+  h2: prefix: 'h2', body: 'h2. $1'
+  h3: prefix: 'h3', body: 'h3. $1'
+  h4: prefix: 'h4', body: 'h4. $1'
+  h5: prefix: 'h5', body: 'h5. $1'
+  h6: prefix: 'h6', body: 'h6. $1'
+
+  # dash point lists
+  dash_list_1: prefix: 'dl1', body: '- $1'
+  dash_list_2: prefix: 'dl2', body: '- $1\n- $2'
+  dash_list_3: prefix: 'dl3', body: '- $1\n- $2\n- $3'
+  dash_list_4: prefix: 'dl4', body: '- $1\n- $2\n- $3\n- $4'
+
+  # bullet point lists
+  bullet_list_1: prefix: 'bl1', body: '* $1'
+  bullet_list_2: prefix: 'bl2', body: '* $1\n* $2'
+  bullet_list_3: prefix: 'bl3', body: '* $1\n* $2\n* $3'
+  bullet_list_4: prefix: 'bl4', body: '* $1\n* $2\n* $3\n* $4'
+
+  # numbered lists
+  num_list_1: prefix: 'nl1', body: '# $1'
+  num_list_2: prefix: 'nl2', body: '# $1\n# $2'
+  num_list_3: prefix: 'nl3', body: '# $1\n# $2\n# $3'
+  num_list_4: prefix: 'nl4', body: '# $1\n# $2\n# $3\n# $4'
+
+  # table
+  table:
+    prefix: '$table'
     body: '''
-      {code:${1:lang}}
+    ||${1:heading 1}||${2:heading 2}||${3:heading 3}||
+    |${4:cell A1}|${5:cell A2}|${6:cell A3}|
+    |${7:cell B1}|${8:cell B2}|${9:cell B3}|
+    '''
+
+  code:
+    prefix: 'code'
+    body: '''
+      {code:${1:language}|title=${2:title}|borderStyle=${3:solid}}
       $0
       {code}
     '''
   picture:
-    prefix: "pics"
+    prefix: 'pics'
     body: '''
       !${1:filename.png}|align=${2:alignment},border=${3:1}!
     '''
-  "Macro (with body)":
-    prefix: "mm"
-    body: "{$1}$0{${1/\\:.*//}}"
+  'Macro (with body)':
+    prefix: 'mm'
+    body: '{$1}$0{${1/\\:.*//}}'
   Macro:
-    prefix: "m"
-    body: "{$1}$0"
+    prefix: 'm'
+    body: '{$1}$0'
