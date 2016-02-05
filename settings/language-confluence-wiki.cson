@@ -1,4 +1,4 @@
-".text.html.confluence":
+'.text.html.confluence':
   editor:
-    commentStart: "{HTMLComment:hidden}"
-    commentEnd: "{HTMLComment}"
+    commentStart: '{HTMLComment:hidden}'
+    commentEnd: '{HTMLComment}'
